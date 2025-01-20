@@ -25,9 +25,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2rlA1L2iVrvWXYrmYI6bkYpZk29" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,7 +35,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.My_basics2.executor": "Debug",
+    "Python.My_basics2.executor": "Run",
     "Python.hw3.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -43,7 +43,7 @@
     "last_opened_file_path": "/Users/ksenia/Developer/3.1 Проекты тестовые/gfg/homework"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.hw3">
+  <component name="RunManager" selected="Python.My_basics2">
     <configuration name="My_basics2" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="homework" />
       <option name="ENV_FILES" value="" />
