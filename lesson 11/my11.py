@@ -2,6 +2,7 @@ from abc import abstractmethod
 
 class Country:
     educatin = True
+
     def __init__(self, name, age):
         self.name = name
         self.hdsk = age
@@ -9,6 +10,10 @@ class Country:
 class Person(Country):
     min_age = 20
     max_age = 60
+
+    def __init__(self, name, age, sername):
+        super().__init__(self, name, age)
+        self.sername = sername
 
 bim = Person('bim', 20)
 bim.org = 'new'
