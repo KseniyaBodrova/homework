@@ -1,34 +1,40 @@
 from functools import reduce
-
+from sys import excepthook
 
 user_input = ''
-while user_input != ' ':
+while True:
     user_input = input('Введите действие: ')
+
     if user_input == 'exit':
         break
-    elif '+' in user_input:
-        user_input = user_input.split('+')
-        user_input = list(map(int, user_input))
-        print(f'Результат: ', sum(user_input))
-    elif '-' in user_input:
-        user_input = user_input.split('-')
-        user_input = list(map(int, user_input))
-        result_user_input = reduce(lambda x, y: x - y, user_input)
-        print(f'Результат: ', result_user_input)
-    elif '/' in user_input:
-        user_input = user_input.split('/')
-        user_input = list(map(int, user_input))
-        result_user_input = reduce(lambda x, y: x / y, user_input)
-        print(f'Результат: ', result_user_input)
-    elif '*' in user_input:
-        user_input = user_input.split('*')
-        user_input = list(map(int, user_input))
-        result_user_input = reduce(lambda x, y: x * y, user_input)
-        print(f'Результат: ', result_user_input)
-    else:
-        print('К сожалению эту операцию я не могу выполнить :(')
+    try:
+        if '+' in user_input:
+            result = list(map(int, user_input.split('+')))
+            end_result = sum(result)
 
+        elif '-' in user_input:
+            result = list(map(int, user_input.split('-')))
+            end_result = reduce(lambda x, y: x - y, result)
 
+        elif '/' in user_input:
+            result = list(map(int, user_input.split('/')))
+            end_result = reduce(lambda x, y: x / y, result)
+
+        elif '*' in user_input:
+            result = list(map(int, user_input.split('*')))
+            end_result = reduce(lambda x, y: x * y, result)
+
+        else:
+            print('К сожалению эту операцию я не могу выполнить :(')
+            continue
+
+        print(f'Результат: {end_result}')
+
+    except ZeroDivisionError:
+        print('На 0 делить нельзя')
+
+    except ValueError:
+        print('Ошибка: введите корректные числа!')
 
 
 # def summa_calc(a, b):
