@@ -31,7 +31,7 @@ while True:
         print(f'Результат: {end_result}')
 
     except ZeroDivisionError:
-        print('На 0 делить нельзя')
+        print('Ошибка: на 0 делить нельзя')
 
     except ValueError:
         print('Ошибка: введите корректные числа!')
