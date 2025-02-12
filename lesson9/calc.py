@@ -1,7 +1,6 @@
 from functools import reduce
 from sys import excepthook
 
-user_input = ''
 while True:
     user_input = input('Введите действие: ')
 
@@ -31,10 +30,10 @@ while True:
         print(f'Результат: {end_result}')
 
     except ZeroDivisionError:
-        print('Ошибка: на 0 делить нельзя')
+        print(f'Ошибка: на 0 делить нельзя, вы ввели {user_input}')
 
     except ValueError:
-        print('Ошибка: введите корректные числа!')
+        print(f'Ошибка: введите корректные числа!, вы ввели {user_input}')
 
 
 # def summa_calc(a, b):
