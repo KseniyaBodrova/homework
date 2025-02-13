@@ -1,5 +1,4 @@
 from functools import reduce
-from sys import excepthook
 
 while True:
     user_input = input('Введите действие: ')
@@ -9,7 +8,7 @@ while True:
     try:
         if '+' in user_input:
             result = list(map(int, user_input.split('+')))
-            end_result = sum(result)
+            end_result = reduce(lambda x, y: x + y, result)
 
         elif '-' in user_input:
             result = list(map(int, user_input.split('-')))
@@ -35,18 +34,3 @@ while True:
     except ValueError:
         print(f'Ошибка: введите корректные числа!, вы ввели {user_input}')
 
-
-# def summa_calc(a, b):
-#     return a + b
-# def subtraction_calc(a, b):
-#     return a - b
-# a = int(input('Введи первое число'))
-# opereator_calc = input('Введи оператор')
-# b = int(input('Введи второе число'))
-
-# print(a)
-# print(b)
-# if opereator_calc == '+':
-#     print(summa_calc(a, b))
-# else:
-#     print(subtraction_calc(a, b))
