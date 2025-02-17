@@ -1,9 +1,9 @@
 import sqlite3
 
 # Используем сырую строку для пути
-db_path = r'/Users/ksenia/Developer/local_db.sqlite'
-db = sqlite3.connect(db_path)
-db.row_factory = sqlite3.Row
+# db_path = r'/Users/ksenia/Developer/local_db.sqlite'
+# db = sqlite3.connect(db_path)
+# db.row_factory = sqlite3.Row
 
 # # Подключение к базе данных
 # try:
