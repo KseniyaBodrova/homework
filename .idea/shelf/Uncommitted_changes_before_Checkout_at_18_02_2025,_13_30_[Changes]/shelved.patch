@@ -1,0 +1,92 @@
+Index: lesson 15/my15 sql with Python.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import sqlite3\n\n# Используем сырую строку для пути\n# db_path = r'/Users/ksenia/Developer/local_db.sqlite'\n# db = sqlite3.connect(db_path)\n# db.row_factory = sqlite3.Row\n\n# # Подключение к базе данных\n# try:\n#     db = sqlite3.connect(db_path)\n#     print('Подключение успешно!')\n# except sqlite3.OperationalError as e:\n#     print('Ошибка подключения: {e}')\ncursor = db.cursor()\n# Запрос для получения списка всех таблиц\ncursor.execute('SELECT name FROM sqlite_master WHERE type=\"table\";')\ntables = cursor.fetchall()\n\n# Выводим список таблиц\nprint(\"Таблицы в базе данных:\")\nfor table in tables:\n    print(table[0])\n\n# Выводим все строки таблицы Printer\ncursor.execute('SELECT * FROM Printer')\ndata = cursor.fetchall()\nprint(data)\nfor row in data:\n    print(dict(row))\n\n# Выводим ОДИН результат(строку) из таблицы Printer\ncursor.execute('SELECT * FROM Printer WHERE model = \"1111\"')\ndata2 = cursor.fetchone()\nprint(dict(data2))\n\n# ## НЕ защищенный запрос от инъекций. Не используйте .format() для SQL-запросов\n# print('новый запрос1')\n# query = \"SELECT * FROM Printer WHERE color = '{0}' AND price = '{1}'\"\n# cursor.execute(query.format(input('color'), input('price')))\n# data4 = cursor.fetchall()\n# for row in data4:\n#     print(dict(row))\n#\n# ## Защищенный запрос от инъекций - через параметризованный запрос\n# ## query = \"SELECT * FROM Printer WHERE color = ? AND price = ?\"\n# ## cursor.execute(query, (color, price))\n# print('новый запрос2')\n# query = \"SELECT * FROM Printer WHERE color = ? AND price = ?\"\n# cursor.execute(query, (input('color'), input('price')))\n# for row in cursor.fetchall():\n#     print(dict(row))\n\n## Запрос на изменение в БД\nprint('новый запрос3')\ncursor.execute(\"INSERT INTO Printer (code, model, color, type, price) VALUES (3, '1276', 'n', 'Laser', 250)\")\ncursor.execute(\"INSERT INTO Printer (code, model, color, type, price) VALUES (2, '1277', 'n', 'Laser', 255)\")\ndb.commit()\n# Закрытие соединения\ndb.close()\n\n
+===================================================================
+diff --git a/lesson 15/my15 sql with Python.py b/lesson 15/my15 sql with Python.py
+--- a/lesson 15/my15 sql with Python.py	(revision 0d163d5576fac4013bfbdd736d7d9c2802086821)
++++ b/lesson 15/my15 sql with Python.py	(date 1739799204923)
+@@ -1,9 +1,9 @@
+ import sqlite3
+ 
+ # Используем сырую строку для пути
+-# db_path = r'/Users/ksenia/Developer/local_db.sqlite'
+-# db = sqlite3.connect(db_path)
+-# db.row_factory = sqlite3.Row
++db_path = r'/Users/ksenia/Developer/local_db.sqlite'
++db = sqlite3.connect(db_path)
++db.row_factory = sqlite3.Row
+ 
+ # # Подключение к базе данных
+ # try:
+@@ -16,23 +16,23 @@
+ cursor.execute('SELECT name FROM sqlite_master WHERE type="table";')
+ tables = cursor.fetchall()
+ 
+-# Выводим список таблиц
+-print("Таблицы в базе данных:")
+-for table in tables:
+-    print(table[0])
+-
+-# Выводим все строки таблицы Printer
+-cursor.execute('SELECT * FROM Printer')
+-data = cursor.fetchall()
+-print(data)
+-for row in data:
+-    print(dict(row))
+-
+-# Выводим ОДИН результат(строку) из таблицы Printer
+-cursor.execute('SELECT * FROM Printer WHERE model = "1111"')
+-data2 = cursor.fetchone()
+-print(dict(data2))
+-
++# # Выводим список таблиц
++# print("Таблицы в базе данных:")
++# for table in tables:
++#     print(table[0])
++#
++# # Выводим все строки таблицы Printer
++# cursor.execute('SELECT * FROM Printer')
++# data = cursor.fetchall()
++# print(data)
++# for row in data:
++#     print(dict(row))
++#
++# # Выводим ОДИН результат(строку) из таблицы Printer
++# cursor.execute('SELECT * FROM Printer WHERE model = "1111"')
++# data2 = cursor.fetchone()
++# print(dict(data2))
++#
+ # ## НЕ защищенный запрос от инъекций. Не используйте .format() для SQL-запросов
+ # print('новый запрос1')
+ # query = "SELECT * FROM Printer WHERE color = '{0}' AND price = '{1}'"
+@@ -50,10 +50,25 @@
+ # for row in cursor.fetchall():
+ #     print(dict(row))
+ 
+-## Запрос на изменение в БД
+-print('новый запрос3')
+-cursor.execute("INSERT INTO Printer (code, model, color, type, price) VALUES (3, '1276', 'n', 'Laser', 250)")
+-cursor.execute("INSERT INTO Printer (code, model, color, type, price) VALUES (2, '1277', 'n', 'Laser', 255)")
++# ## Запрос на изменение в БД
++# print('новый запрос3')
++# cursor.execute("INSERT INTO Printer (code, model, color, type, price) VALUES (3, '1276', 'n', 'Laser', 250)")
++# cursor.execute("INSERT INTO Printer (code, model, color, type, price) VALUES (2, '1277', 'n', 'Laser', 255)")
++# db.commit()
++
++
++# model_id = cursor.lastrowid
++# cursor.execute(f"SELECT * FROM Printer WHERE model = {model_id}")
++# print(cursor.fetchone())
++
++# print('новый запрос4')
++inser_query = "INSERT INTO Printer (code, model, color, type, price) VALUES (?, ?, ?, ?, ?)"
++cursor.executemany(
++    inser_query, [
++        (2, '1279', 'n', 'Laser', 259),
++        (2, '1280', 'n', 'Laser', 258)
++    ]
++)
+ db.commit()
+ # Закрытие соединения
+ db.close()
