@@ -87,5 +87,4 @@ def delete_a_post():
     print(response.json())
     print(response.status_code)
 
-
-post_a_post()
+one_post()
