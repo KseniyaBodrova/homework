@@ -1,0 +1,59 @@
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+@pytest.fixture()
+def driver():
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.set_window_size(700, 1020)
+    return chrome_driver
+
+
+def test_id_name(driver):
+    input_data = 'name'
+    driver.get('https://www.qa-practice.com/elements/input/simple')
+    # поиск по ID
+    # text_string = driver.find_element(By.ID, 'id_text_string')
+    # поиск по Name
+    text_string = driver.find_element(By.NAME, 'text_string')
+    text_string.send_keys(input_data)
+    # text_string.submit()
+    text_string.send_keys(Keys.ENTER)
+    result_text = driver.find_element(By.ID, 'result-text')
+    assert result_text.text == input_data
+
+def test_class_name(driver):
+    input_data = 'name'
+    driver.get('https://www.qa-practice.com/elements/input/simple')
+    text_string = driver.find_element(By.CLASS_NAME, 'textinput')
+    text_string.send_keys(input_data)
+    text_string.send_keys(Keys.ENTER)
+    result_text = driver.find_element(By.CLASS_NAME, 'result-text')
+    print(result_text.text)
+    print(result_text.get_attribute('inner_text'))
+    assert result_text.text == input_data
+
+def test_tag_name(driver):
+    driver.get('https://www.qa-practice.com/elements/input/simple')
+    driver.find_element(By.TAG_NAME, 'h1').text == 'Input field'
+
+def test_link(driver):
+    driver.get('https://www.qa-practice.com/elements/input/simple')
+    alert = driver.find_element(By.LINK_TEXT, 'Alerts')
+    alert.click()
+    assert driver.find_element(By.TAG_NAME, 'h1').text == 'Alerts'
+
+def test_css_selector(driver):
+    driver.get('https://www.qa-practice.com/elements/input/simple')
+    text_string = driver.find_element(By.CSS_SELECTOR, '.form-control')
+    text_string.send_keys('name')
+    # text_string.send_keys(Keys.ENTER)
+    print(text_string.value_of_css_property('border-color'))
+    assert text_string.get_attribute('placeholder') == 'Submit me'
+
+def test_xpath(driver):
+    driver.get('https://www.qa-practice.com/elements/input/simple')
+    text_string = driver.find_element(By.XPATH, '//*[@placeholder="Submit me"]')
+    text_string.send_keys('name')
+    text_string.send_keys(Keys.ENTER)
